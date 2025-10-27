@@ -1,0 +1,2 @@
+# MyTradingPlatform
+My Trading Platform
