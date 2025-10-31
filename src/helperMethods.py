@@ -9,13 +9,13 @@ import feedparser
 
 
 
-folder_path = "~/resources"  # Replace with your actual folder name
-file_name = "Book1.xlsx"  # Replace with your actual file name
+folder_path = os.getcwd()  # Replace with your actual folder name
+file_name = "src\\resources\\Book1.xlsx"  # Replace with your actual file name
 
 # Construct the full file path
 WATCHLIST_PATH = os.path.join(folder_path, file_name)
 
-WATCHLIST_PATH = '/home/nagendra/projects/TradingPlatform/MyTradingPlatform/src/resources/Book1.xlsx'
+#WATCHLIST_PATH = '/home/nagendra/projects/TradingPlatform/MyTradingPlatform/src/resources/Book1.xlsx'
 
 def get_float(symbol):
     try:
