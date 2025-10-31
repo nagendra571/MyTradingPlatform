@@ -1,5 +1,5 @@
 import streamlit as st
-from helperMethods import get_ai_analysis, get_news_for_stock, load_watchlist
+from helperMethods import get_ai_analysis, get_news_for_stock, get_news_for_stock_from_newsdata, load_watchlist, get_news_for_stock_from_newsdata
 
 # ---------------------------------------------
 # Streamlit Layout
@@ -27,7 +27,8 @@ with col1:
 with col2:
     st.subheader("2️⃣ Latest News")
     if selected_index:
-        news_list = get_news_for_stock(selected_index)
+        #news_list = get_news_for_stock(selected_index)
+        news_list = get_news_for_stock_from_newsdata(selected_index)
         st.dataframe(news_list, use_container_width=True)
         
 # Panel 3: Empty for future

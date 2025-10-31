@@ -50,6 +50,13 @@ def get_stock_news_URL(ticker, days=90):
     return  f'https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en'
 
 
+def get_stock_newsdata_io_URL(ticker, days=90): 
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=days)
+    
+    return  f'https://newsdata.io/api/1/archive?apikey=pub_47c6036376064ca5a9cd1518fd4cf14e&q={ticker}&language=en&from_date={start_date.strftime("%Y-%m-%d")}&to_date={end_date.strftime("%Y-%m-%d")}'
+
+
 # ---------------------------------------------
 # Fetch news (you already have your logic)
 # ---------------------------------------------
@@ -82,6 +89,34 @@ def get_news_for_stock(ticker, days=1):
         df_sorted = df.sort_values(by = 'date', ascending= False)
     return df_sorted
 
+
+def get_news_for_stock_from_newsdata(ticker, days=1): 
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=days)
+    
+    rss_url = get_stock_newsdata_io_URL(ticker, days)
+    
+    feed = feedparser.parse(rss_url)
+    
+    news_items = []
+    for entry in feed.entries[:100]:  # Hardcoded max 100 articles
+        try:
+            news_items.append({
+                'date': entry.get('published', 'N/A'),
+                'title': entry.title,
+                'url': entry.link,
+                'source': entry.get('source', {}).get('title', 'N/A'),
+                'company': ticker,
+                'ticker': ticker
+            })
+        except:
+            continue
+    
+    df = pd.DataFrame(news_items)
+    if not df.empty:
+        df['date'] = pd.to_datetime(df['date'])
+        df_sorted = df.sort_values(by = 'date', ascending= False)
+    return df_sorted
 
 # ---------------------------------------------
 # Dummy AI analysis (replace later with real LLM call)
