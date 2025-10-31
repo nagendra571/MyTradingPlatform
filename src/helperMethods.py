@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import yfinance as yf
 from datetime import datetime
@@ -6,7 +7,15 @@ from datetime import datetime, timedelta
 from urllib.parse import quote_plus
 import feedparser
 
-WATCHLIST_PATH = "C:\\Nagendra\\Code\\Files\\Book1.xlsx"
+
+
+folder_path = "~/resources"  # Replace with your actual folder name
+file_name = "Book1.xlsx"  # Replace with your actual file name
+
+# Construct the full file path
+WATCHLIST_PATH = os.path.join(folder_path, file_name)
+
+WATCHLIST_PATH = '/home/nagendra/projects/TradingPlatform/MyTradingPlatform/src/resources/Book1.xlsx'
 
 def get_float(symbol):
     try:
