@@ -32,6 +32,7 @@ def get_float(symbol):
 # ---------------------------------------------
 def load_watchlist():
     try:
+        print(WATCHLIST_PATH)
         df = pd.read_excel(WATCHLIST_PATH)
         df.columns = [c.strip().lower() for c in df.columns]
         df = df.dropna(subset=['symbol'])
